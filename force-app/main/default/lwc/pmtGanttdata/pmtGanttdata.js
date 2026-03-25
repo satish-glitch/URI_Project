@@ -314,7 +314,7 @@ export default class PmtGanttdata extends NavigationMixin(LightningElement) {
             const colorMap = {
                 PMT_Project__c: "#6B8CAE",
                 PMT_Phase__c:   "#7A9E7E",
-                PMT_Task__c:    "#eb0c13"
+                PMT_Task__c:    "#0c5aeb"
             };
 
             var backgroundColor = record.isMilestone ? "#9B84B8" : colorMap[record.objAPIName];

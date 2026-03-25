@@ -114,10 +114,10 @@
     }*/
 
     .task-icon {
-        --sds-c-icon-color-foreground-default: #eb0c13;
-        --sds-c-icon-color-foreground: #eb0c13;
-        --sds-c-icon-color-background: #eb0c13;
-        --lwc-colorTextIconDefault: #eb0c13;
+        --sds-c-icon-color-foreground-default: #0c5aeb;
+        --sds-c-icon-color-foreground: #0c5aeb;
+        --sds-c-icon-color-background: #0c5aeb;
+        --lwc-colorTextIconDefault: #0c5aeb;
         margin-right: 5px;
     }
 
