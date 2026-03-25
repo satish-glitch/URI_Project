@@ -70,7 +70,7 @@
         </lightning-card>
 
         <lightning-card if:false={withfilters}>
-            <c-pmt-gantt1
+            <c-pmt-gantt
                 project-id={recordId}
                 project-progress={progressSelected}
                 project-health={healthSelected}
@@ -81,7 +81,7 @@
                 myprojflag={showMyProj}
                 mytaskflag={showTskAssignedToMe}
                 followprojflag={showFollowing}>
-            </c-pmt-gantt1>
+            </c-pmt-gantt>
         </lightning-card>
 
     </div>
