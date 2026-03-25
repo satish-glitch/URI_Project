@@ -92,8 +92,8 @@
     }
 
     .task-icon {
-        --sds-c-icon-color-foreground-default: #C9956A;
-        --sds-c-icon-color-background: #C9956A;
+        --sds-c-icon-color-foreground-default: #eb0c13;
+        --sds-c-icon-color-background: #eb0c13;
         margin-right: 5px;
     }
 
