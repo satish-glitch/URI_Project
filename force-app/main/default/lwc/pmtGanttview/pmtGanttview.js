@@ -6,7 +6,7 @@
 
 import { LightningElement, api, wire } from 'lwc';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
-import fetchGanttFilters from '@salesforce/apex/PMT_GanttCtrl1.getGanttFilters';
+import fetchGanttFilters from '@salesforce/apex/PMT_GanttCtrl.getGanttFilters';
 const ALL_CONST = 'All';
 
 export default class Pmt_GanttView extends LightningElement {
