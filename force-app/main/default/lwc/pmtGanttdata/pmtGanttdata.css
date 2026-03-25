@@ -160,7 +160,7 @@
     position: absolute; 
     top: 4px;
     height: 26px;
-    background-color: rgba(246, 4, 4, 0.7); /* 50% transparent red */
+    background-color:rgba(235, 11, 11, 0.85);; /* 50% transparent red */
     border-radius: 3px;
     z-index: 10;
     opacity: 0.9;
