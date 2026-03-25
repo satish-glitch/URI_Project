@@ -56,7 +56,7 @@
     max-height: 150px;
 }
 
-.project-icon {
+/*.project-icon {
     --sds-c-icon-color-foreground-default: #c8c8c8;
     --sds-c-icon-color-background: #c8c8c8;
     margin-right: 5px;
@@ -77,4 +77,34 @@
     --sds-c-icon-color-foreground-default: #d3b33d;
     --sds-c-icon-color-background: #d3b33d;
     margin-right: 5px;
-  }
+  }*/
+
+    .project-icon {
+        --sds-c-icon-color-foreground-default: #6B8CAE;
+        --sds-c-icon-color-background: #6B8CAE;
+        margin-right: 5px;
+    }
+
+    .phase-icon {
+        --sds-c-icon-color-foreground-default: #7A9E7E;
+        --sds-c-icon-color-background: #7A9E7E;
+        margin-right: 5px;
+    }
+
+    .task-icon {
+        --sds-c-icon-color-foreground-default: #C9956A;
+        --sds-c-icon-color-background: #C9956A;
+        margin-right: 5px;
+    }
+
+    .milestone-icon {
+        --sds-c-icon-color-foreground-default: #9B84B8;
+        --sds-c-icon-color-background: #9B84B8;
+        margin-right: 5px;
+    }
+
+  /* pmtGantt.css — add at the bottom */
+/*.project-icon   { color: #6B8CAE; }
+.phase-icon     { color: #7A9E7E; }
+.task-icon      { color: #C9956A; }
+.milestone-icon { color: #9B84B8; }  */

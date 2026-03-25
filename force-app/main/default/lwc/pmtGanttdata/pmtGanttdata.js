@@ -312,12 +312,12 @@ export default class PmtGanttdata extends NavigationMixin(LightningElement) {
             ];
 
             const colorMap = {
-                PMT_Project__c: "#c8c8c8",
-                PMT_Phase__c:   "#A3A3A3",
-                PMT_Task__c:    "#f10c17"
+                PMT_Project__c: "#6B8CAE",
+                PMT_Phase__c:   "#7A9E7E",
+                PMT_Task__c:    "#C9956A"
             };
 
-            var backgroundColor = record.isMilestone ? "#D3B33D" : colorMap[record.objAPIName];
+            var backgroundColor = record.isMilestone ? "#9B84B8" : colorMap[record.objAPIName];
             styles.push("background-color: " + backgroundColor);
 
             if (!isNaN(this.dragInfo.startIndex)) {
