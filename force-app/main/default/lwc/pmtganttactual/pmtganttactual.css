@@ -1,0 +1,413 @@
+/* ══════════════════════════════════════════════════════════════
+   PMT GANTT – PLANNED vs ACTUAL
+   Designed to visually match the standard inov8 PMT Gantt style
+══════════════════════════════════════════════════════════════ */
+
+/* ── Outer container ─────────────────────────────────────────── */
+.gantt-outer {
+    font-family: 'Salesforce Sans', Arial, sans-serif;
+    font-size: 13px;
+    background: #ffffff;
+    border: 1px solid #dddbda;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+/* ── Top bar ─────────────────────────────────────────────────── */
+.gantt-topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #f3f3f3;
+    border-bottom: 1px solid #dddbda;
+    padding: 8px 16px;
+}
+
+.topbar-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: #080707;
+}
+
+.topbar-sub {
+    font-size: 11px;
+    color: #706e6b;
+    margin-left: 10px;
+}
+
+/* Legend */
+.gantt-legend {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 11px;
+    color: #3e3e3c;
+}
+
+.legend-box {
+    display: inline-block;
+    width: 24px;
+    height: 10px;
+    border-radius: 2px;
+    vertical-align: middle;
+}
+
+.legend-line {
+    display: inline-block;
+    width: 2px;
+    height: 14px;
+    vertical-align: middle;
+}
+
+.legend-txt {
+    margin-right: 6px;
+}
+
+.planned-bg   { background: #4FC3CF; }
+.actual-bg    { background: #F59E0B; }
+.today-line-demo { background: #e52d19; }
+
+/* ── Loading ─────────────────────────────────────────────────── */
+.gantt-loading {
+    padding: 40px;
+    text-align: center;
+}
+
+/* ── Scroll wrapper ──────────────────────────────────────────── */
+.gantt-scroll-wrap {
+    overflow-x: auto;
+    overflow-y: visible;
+}
+
+/* ── Table ───────────────────────────────────────────────────── */
+.gantt-table {
+    width: 100%;
+    min-width: 900px;
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+
+/* ── Table header ────────────────────────────────────────────── */
+.gantt-table thead tr {
+    background: #f3f3f3;
+    border-bottom: 1px solid #dddbda;
+}
+
+.th-task-name {
+    width: 220px;
+    min-width: 220px;
+    padding: 6px 12px;
+    text-align: left;
+    font-size: 11px;
+    font-weight: 700;
+    color: #3e3e3c;
+    border-right: 1px solid #dddbda;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.th-week {
+    /* Each week column */
+    width: 56px;
+    min-width: 56px;
+    padding: 6px 2px;
+    text-align: center;
+    font-size: 10px;
+    color: #706e6b;
+    font-weight: 600;
+    border-right: 1px solid #eeeeee;
+    white-space: nowrap;
+}
+
+.th-action {
+    width: 110px;
+    min-width: 110px;
+    padding: 6px 8px;
+    text-align: center;
+    font-size: 11px;
+    font-weight: 700;
+    color: #3e3e3c;
+    border-left: 1px solid #dddbda;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+/* ── Phase row ───────────────────────────────────────────────── */
+.td-phase {
+    background: #e8f4ff;
+    padding: 4px 12px;
+    border-top: 1px solid #c9dff5;
+    border-bottom: 1px solid #c9dff5;
+}
+
+.phase-label {
+    font-size: 11px;
+    font-weight: 700;
+    color: #0070d2;
+    letter-spacing: 0.03em;
+}
+
+/* ── Planned task row ────────────────────────────────────────── */
+.tr-planned {
+    border-bottom: 1px dashed #e0e0e0;
+    background: #ffffff;
+    position: relative;
+}
+
+.tr-planned:hover { background: #f5faff; }
+
+/* ── Actual task row ─────────────────────────────────────────── */
+.tr-actual {
+    border-bottom: 2px solid #f0f0f0;
+    background: #fffdf5;
+    border-left: 3px solid #F59E0B;
+    position: relative;
+}
+
+.tr-actual:hover { background: #fff8e6; }
+
+/* ── Task name cell ──────────────────────────────────────────── */
+.td-task-name {
+    width: 220px;
+    min-width: 220px;
+    padding: 5px 12px;
+    border-right: 1px solid #dddbda;
+    vertical-align: middle;
+}
+
+.td-actual-label {
+    background: inherit;
+}
+
+.task-name-cell {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+/* Circle icon matching standard PMT task icon */
+.circle-icon {
+    font-size: 14px;
+    color: #706e6b;
+    flex-shrink: 0;
+}
+
+.task-label {
+    font-size: 12px;
+    color: #080707;
+    font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 170px;
+}
+
+/* Actual row label style */
+.actual-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: #F59E0B;
+    color: white;
+    font-size: 9px;
+    font-weight: 800;
+    flex-shrink: 0;
+}
+
+.actual-text {
+    color: #a06000;
+    font-style: italic;
+    font-size: 11px;
+}
+
+/* ── Regular week cells (background grid) ────────────────────── */
+.td-cell {
+    border-right: 1px solid #f0f0f0;
+    padding: 0;
+    height: 32px;
+}
+
+/* ── Bar overlay cell – contains the absolute-positioned bar ─── */
+/* NOTE: This cell is hidden (width:0) but the bar-track inside
+   spans the full timeline via position:absolute on parent <tr>  */
+
+/*
+  !! KEY TECHNIQUE !!
+  The bar-track is a full-width absolutely-positioned div
+  that overlays ALL the week cells in the same row.
+  This is how PMT renders its bars.
+*/
+
+.tr-planned,
+.tr-actual {
+    position: relative;
+}
+
+/* We hide the td-bar-overlay cell from layout */
+.td-bar-overlay {
+    display: none;  /* hidden from table flow */
+}
+
+/* The bar-track overlays the entire row's timeline section */
+.bar-track {
+    position: absolute;
+    /* left = task name column width */
+    left: 220px;
+    /* right = action column width */
+    right: 110px;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 18px;
+    pointer-events: none;
+}
+
+/* Today vertical line */
+.today-marker {
+    position: absolute;
+    top: -6px;
+    bottom: -6px;
+    width: 2px;
+    background: #e52d19;
+    z-index: 3;
+    opacity: 0.75;
+}
+
+/* ── Bars ────────────────────────────────────────────────────── */
+.bar {
+    position: absolute;
+    top: 0;
+    height: 18px;
+    border-radius: 3px;
+    min-width: 4px;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    pointer-events: all;
+    cursor: default;
+    transition: filter 0.12s;
+}
+
+.bar:hover { filter: brightness(1.08); }
+
+/* Planned bar – teal, matching PMT standard task bar colour */
+.planned-bar {
+    background: #4FC3CF;
+    box-shadow: 0 1px 3px rgba(79,195,207,0.35);
+}
+
+/* Actual bar – amber */
+.actual-bar {
+    background: #F59E0B;
+    box-shadow: 0 1px 3px rgba(245,158,11,0.35);
+}
+
+.bar-inner-text {
+    font-size: 10px;
+    color: rgba(255,255,255,0.95);
+    font-weight: 600;
+    padding: 0 5px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    pointer-events: none;
+}
+
+.no-actual-text {
+    position: absolute;
+    left: 6px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 10px;
+    color: #c0bfbd;
+    font-style: italic;
+    pointer-events: none;
+}
+
+/* ── Action cell ─────────────────────────────────────────────── */
+.td-action {
+    width: 110px;
+    min-width: 110px;
+    padding: 4px 8px;
+    border-left: 1px solid #dddbda;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.btn-set-actual {
+    background: #0070d2;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 3px 9px;
+    font-size: 11px;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background 0.15s;
+    font-family: inherit;
+}
+
+.btn-set-actual:hover { background: #005ba1; }
+
+/* Variance chips */
+.var-chip {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 2px 7px;
+    border-radius: 20px;
+    white-space: nowrap;
+}
+
+.var-late   { background: #fde8e8; color: #c23934; }
+.var-early  { background: #e3f5e1; color: #2e7d32; }
+.var-ontime { background: #e3f5e1; color: #2e7d32; }
+
+/* ── Empty state ─────────────────────────────────────────────── */
+.td-empty {
+    padding: 40px;
+    text-align: center;
+    color: #706e6b;
+}
+
+/* ══════════════════════════════════════
+   MODAL  (uses SLDS classes + overrides)
+══════════════════════════════════════ */
+
+.modal-container {
+    max-width: 480px;
+}
+
+.modal-header {
+    background: #032D60 !important;
+}
+
+.modal-header .slds-modal__title {
+    color: white !important;
+}
+
+.modal-body {
+    padding: 20px 24px;
+}
+
+.modal-task-ref {
+    font-size: 13px;
+    color: #3e3e3c;
+    margin-bottom: 10px;
+}
+
+.modal-planned-banner {
+    background: #e8f4ff;
+    border-left: 4px solid #4FC3CF;
+    padding: 8px 12px;
+    border-radius: 3px;
+    font-size: 12px;
+    color: #1b5e8e;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}

@@ -1,0 +1,198 @@
+<template>
+    <div class="gantt-outer">
+
+        <!-- ════════════════════════════════════════════════
+             HEADER  – matches PMT's own header style
+        ════════════════════════════════════════════════ -->
+        <div class="gantt-topbar">
+            <div class="gantt-topbar-left">
+                <span class="topbar-title">{projectName}</span>
+                <span class="topbar-sub">Planned vs Actual View</span>
+            </div>
+            <div class="gantt-legend">
+                <span class="legend-box planned-bg"></span><span class="legend-txt">Planned</span>
+                <span class="legend-box actual-bg"></span><span class="legend-txt">Actual</span>
+                <span class="legend-line today-line-demo"></span><span class="legend-txt">Today</span>
+            </div>
+        </div>
+
+        <!-- ════════════════════════════════════════════════
+             LOADING
+        ════════════════════════════════════════════════ -->
+        <template if:true={isLoading}>
+            <div class="gantt-loading">
+                <lightning-spinner alternative-text="Loading" size="small" variant="brand"></lightning-spinner>
+            </div>
+        </template>
+
+        <!-- ════════════════════════════════════════════════
+             GANTT TABLE
+        ════════════════════════════════════════════════ -->
+        <template if:false={isLoading}>
+            <div class="gantt-scroll-wrap">
+                <table class="gantt-table" cellspacing="0" cellpadding="0">
+
+                    <!-- ── Week header row ── -->
+                    <thead>
+                        <tr>
+                            <th class="th-task-name">Task</th>
+                            <template for:each={timelineWeeks} for:item="wk">
+                                <th key={wk.key} class="th-week">{wk.label}</th>
+                            </template>
+                            <th class="th-action">Action</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <template if:true={hasTasks}>
+                            <template for:each={enrichedTasks} for:item="task">
+
+                                <!-- Phase separator row -->
+                                <template if:true={task.showPhase}>
+                                    <tr key={task.phaseKey}>
+                                        <td colspan="100" class="td-phase">
+                                            <span class="phase-label">📁 {task.phaseName}</span>
+                                        </td>
+                                    </tr>
+                                </template>
+
+                                <!-- ══ PLANNED row (teal – like standard PMT) ══ -->
+                                <tr key={task.plannedRowKey} class="tr-planned">
+                                    <td class="td-task-name">
+                                        <div class="task-name-cell">
+                                            <span class="circle-icon">○</span>
+                                            <span class="task-label" title={task.Name}>{task.Name}</span>
+                                        </div>
+                                    </td>
+                                    <template for:each={timelineWeeks} for:item="wk">
+                                        <td key={wk.key} class="td-cell">
+                                            <!-- Render planned bar only in first week cell, spanning via absolute -->
+                                        </td>
+                                    </template>
+                                    <!-- Planned bar (positioned absolutely over timeline cells) -->
+                                    <td class="td-bar-overlay" colspan="1">
+                                        <div class="bar-track" data-rowid={task.Id}>
+                                            <!-- today marker -->
+                                            <div class="today-marker" style={todayStyle}></div>
+                                            <!-- planned bar -->
+                                            <template if:true={task.hasPlanned}>
+                                                <div class="bar planned-bar" style={task.plannedStyle} title={task.plannedTitle}>
+                                                    <span class="bar-inner-text">{task.plannedDateLabel}</span>
+                                                </div>
+                                            </template>
+                                        </div>
+                                    </td>
+                                    <td class="td-action">
+                                        <button
+                                            class="btn-set-actual"
+                                            data-id={task.Id}
+                                            data-name={task.Name}
+                                            data-ps={task.inov8__Start_Date__c}
+                                            data-pe={task.inov8__End_Date__c}
+                                            data-as={task.Actual_Start_Date__c}
+                                            data-ae={task.Actual_End_Date__c}
+                                            onclick={openModal}>
+                                            ✏️ Set Actual
+                                        </button>
+                                    </td>
+                                </tr>
+
+                                <!-- ══ ACTUAL row (amber – directly below planned) ══ -->
+                                <tr key={task.actualRowKey} class="tr-actual">
+                                    <td class="td-task-name td-actual-label">
+                                        <div class="task-name-cell">
+                                            <span class="actual-badge">A</span>
+                                            <span class="task-label actual-text" title={task.Name}>{task.Name}</span>
+                                        </div>
+                                    </td>
+                                    <td class="td-bar-overlay" colspan="1">
+                                        <div class="bar-track">
+                                            <div class="today-marker" style={todayStyle}></div>
+                                            <template if:true={task.hasActual}>
+                                                <div class="bar actual-bar" style={task.actualStyle} title={task.actualTitle}>
+                                                    <span class="bar-inner-text">{task.actualDateLabel}</span>
+                                                </div>
+                                            </template>
+                                            <template if:false={task.hasActual}>
+                                                <span class="no-actual-text">— not set —</span>
+                                            </template>
+                                        </div>
+                                    </td>
+                                    <td class="td-action">
+                                        <template if:true={task.variance}>
+                                            <span class={task.varianceClass}>{task.variance}</span>
+                                        </template>
+                                    </td>
+                                </tr>
+
+                            </template>
+                        </template>
+
+                        <!-- empty state -->
+                        <template if:false={hasTasks}>
+                            <tr>
+                                <td colspan="100" class="td-empty">🗂️ No tasks found for this project.</td>
+                            </tr>
+                        </template>
+
+                    </tbody>
+                </table>
+            </div>
+        </template>
+
+        <!-- ════════════════════════════════════════════════
+             SET ACTUAL MODAL
+        ════════════════════════════════════════════════ -->
+        <template if:true={showModal}>
+            <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open">
+                <div class="slds-modal__container modal-container">
+
+                    <header class="slds-modal__header modal-header">
+                        <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
+                                onclick={closeModal} title="Close">
+                            <lightning-icon icon-name="utility:close" size="small" alternative-text="Close"></lightning-icon>
+                        </button>
+                        <h2 class="slds-modal__title slds-hyphenate">✏️ Set Actual Dates</h2>
+                    </header>
+
+                    <div class="slds-modal__content slds-p-around_medium modal-body">
+                        <p class="modal-task-ref">Task: <strong>{modalTaskName}</strong></p>
+                        <div class="modal-planned-banner">
+                            <lightning-icon icon-name="utility:date_input" size="x-small"></lightning-icon>
+                            &nbsp;Planned: <strong>{modalPlannedStart}</strong> → <strong>{modalPlannedEnd}</strong>
+                        </div>
+
+                        <div class="slds-grid slds-gutters slds-m-top_medium">
+                            <div class="slds-col">
+                                <lightning-input
+                                    type="date"
+                                    label="Actual Start Date"
+                                    value={modalActualStart}
+                                    data-field="modalActualStart"
+                                    onchange={handleInput}>
+                                </lightning-input>
+                            </div>
+                            <div class="slds-col">
+                                <lightning-input
+                                    type="date"
+                                    label="Actual End Date"
+                                    value={modalActualEnd}
+                                    data-field="modalActualEnd"
+                                    onchange={handleInput}>
+                                </lightning-input>
+                            </div>
+                        </div>
+                    </div>
+
+                    <footer class="slds-modal__footer">
+                        <button class="slds-button slds-button_neutral" onclick={closeModal}>Cancel</button>
+                        <button class="slds-button slds-button_brand" onclick={saveActual}>Save Actual Dates</button>
+                    </footer>
+
+                </div>
+            </section>
+            <div class="slds-backdrop slds-backdrop_open"></div>
+        </template>
+
+    </div>
+</template>
