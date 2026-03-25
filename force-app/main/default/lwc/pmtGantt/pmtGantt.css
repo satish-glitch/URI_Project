@@ -79,27 +79,59 @@
     margin-right: 5px;
   }*/
 
-    .project-icon {
+   /* .project-icon {
         --sds-c-icon-color-foreground-default: #6B8CAE;
         --sds-c-icon-color-background: #6B8CAE;
         margin-right: 5px;
+    }*/
+
+    .project-icon {
+        --sds-c-icon-color-foreground-default: #6B8CAE;
+        --sds-c-icon-color-foreground: #6B8CAE;
+        --sds-c-icon-color-background: #6B8CAE;
+        --lwc-colorTextIconDefault: #6B8CAE;
+        margin-right: 5px;
     }
 
-    .phase-icon {
+  /*  .phase-icon {
         --sds-c-icon-color-foreground-default: #7A9E7E;
         --sds-c-icon-color-background: #7A9E7E;
         margin-right: 5px;
-    }
+    }*/
 
-    .task-icon {
-        --sds-c-icon-color-foreground-default: #eb0c13;
-        --sds-c-icon-color-background: #eb0c13;
+    .phase-icon {
+        --sds-c-icon-color-foreground-default: #7A9E7E;
+        --sds-c-icon-color-foreground: #7A9E7E;
+        --sds-c-icon-color-background: #7A9E7E;
+        --lwc-colorTextIconDefault: #7A9E7E;
         margin-right: 5px;
     }
 
-    .milestone-icon {
+   /* .task-icon {
+        --sds-c-icon-color-foreground-default: #eb0c13;
+        --sds-c-icon-color-background: #eb0c13;
+        margin-right: 5px;
+    }*/
+
+    .task-icon {
+        --sds-c-icon-color-foreground-default: #eb0c13;
+        --sds-c-icon-color-foreground: #eb0c13;
+        --sds-c-icon-color-background: #eb0c13;
+        --lwc-colorTextIconDefault: #eb0c13;
+        margin-right: 5px;
+    }
+
+  /*  .milestone-icon {
         --sds-c-icon-color-foreground-default: #9B84B8;
         --sds-c-icon-color-background: #9B84B8;
+        margin-right: 5px;
+    }*/
+
+    .milestone-icon {
+        --sds-c-icon-color-foreground-default: #9B84B8;
+        --sds-c-icon-color-foreground: #9B84B8;
+        --sds-c-icon-color-background: #9B84B8;
+        --lwc-colorTextIconDefault: #9B84B8;
         margin-right: 5px;
     }
 
