@@ -1,0 +1,19 @@
+{
+  "folders": [
+    {
+      "path": "f:/URI_Project/URI_Project"
+    }
+  ],
+  "settings": {
+    "eslint.workingDirectories": [
+      "f:/URI_Project/URI_Project"
+    ],
+    "eslint.validate": [
+      "javascript",
+      "typescript"
+    ],
+    "eslint.options": {
+      "overrideConfigFile": "f:\\URI_Project\\URI_Project\\.eslintrc.json"
+    }
+  }
+}
